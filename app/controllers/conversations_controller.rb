@@ -28,13 +28,3 @@ class ConversationsController < ApplicationController
   end
 
 end
-
-
-# create_table "conversations", force: :cascade do |t|
-#   t.bigint "user_id"
-#   t.text "transcript"
-#   t.binary "audio"
-#   t.datetime "created_at", null: false
-#   t.datetime "updated_at", null: false
-#   t.index ["user_id"], name: "index_conversations_on_user_id"
-# end
