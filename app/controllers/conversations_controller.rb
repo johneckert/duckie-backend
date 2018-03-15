@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  before_action :find_user
+  before_action :find_conversation
 
   def index
     conversations = Conversation.all
@@ -23,8 +23,6 @@ class ConversationsController < ApplicationController
 
   def user_params
     params.permit(:transcript, :audio, :id)
-  end
-
   end
 
 end
