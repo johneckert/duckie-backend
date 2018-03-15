@@ -11,18 +11,19 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    @conversation = Conversation.create(audio: params[:audio])
+    @conversation = Conversation.create(user_id: conversation_params[:user_id], transcript: conversation_params[:transcript])
+    byebug
     render json: @conversation, status: 201
   end
 
   private
 
   def find_conversation
-    @conversation = Conversation.find_by(id: params[:id])
+    @conversation = Conversation.find_by(id: conversation_params[:id])
   end
 
-  def user_params
-    params.permit(:transcript, :audio, :id)
+  def conversation_params
+    params.permit(:user_id, :transcript)
   end
 
 end
