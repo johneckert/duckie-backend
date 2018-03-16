@@ -1,3 +1,5 @@
+require 'rest-client'
+
 class ConversationsController < ApplicationController
   before_action :find_conversation
 
@@ -12,7 +14,22 @@ class ConversationsController < ApplicationController
 
   def create
     @conversation = Conversation.create(user_id: conversation_params[:user_id], transcript: conversation_params[:transcript])
-    byebug
+    #organize for watson
+    parameters = {
+        'text' => @conversation.transcript,
+        'features' => {
+            'keywords' =>
+            {
+              'emotion' => false,
+              'sentiment' => false
+            }
+          },
+      'return_analyzed_text' => true
+    }.to_json
+    response = RestClient::Request.execute method: :post, url: "https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27", user: ENV["watson_username"], password: ENV["watson_password"], headers: {'Content-Type': "application/json"}, payload: parameters
+
+    puts response
+
     render json: @conversation, status: 201
   end
 

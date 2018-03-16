@@ -132,8 +132,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    watson-api-client (0.0.8)
-      rest-client
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -149,10 +147,10 @@ DEPENDENCIES
   puma (~> 3.7)
   rack-cors
   rails (~> 5.1.5)
+  rest-client
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
-  watson-api-client
 
 BUNDLED WITH
    1.16.0

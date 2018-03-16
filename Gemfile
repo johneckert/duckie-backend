@@ -43,5 +43,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #manage API keys
 gem 'figaro'
 
+gem 'rest-client'
 #access watson REST API
-gem 'watson-api-client'
+# gem 'watson-api-client'
