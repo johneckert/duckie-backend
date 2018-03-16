@@ -38,7 +38,7 @@ class ConversationsController < ApplicationController
     create_keywords_from_keywords(converted_response)
     create_keywords_from_concepts(converted_response)
 
-    render json: @conversation, status: 201
+    render json: @conversation.keywords, status: 201
   end
 
   private
