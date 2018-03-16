@@ -14,29 +14,34 @@ class ConversationsController < ApplicationController
 
   def create
     @conversation = Conversation.create(user_id: conversation_params[:user_id], transcript: conversation_params[:transcript])
+    #get individual words
+    word_array = @conversation.transcript.split(" ")
+
+
     #organize for watson
-    parameters = {
-      'text' => @conversation.transcript,
-      'features' => {
-        'concepts' => {
-          'limit' => 10
-        },
-        'keywords' =>
-        {
-          'emotion' => false,
-          'sentiment' => false,
-          'limit' => 10
+      parameters = {
+        'text' => @conversation.transcript,
+        'features' => {
+          'concepts' => {
+            'limit' => 10
+          },
+          'keywords' =>
+          {
+            'emotion' => false,
+            'sentiment' => false,
+            'limit' => 10
+          }
         }
-      }
-    }.to_json
+      }.to_json
 
-    #send transcript to watson and get keyword respons
-    response = RestClient::Request.execute method: :post, url: "https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27", user: ENV["watson_username"], password: ENV["watson_password"], headers: {'Content-Type': "application/json"}, payload: parameters
 
-    #generate keyword objects
-    converted_response = JSON.parse(response)
-    create_keywords_from_keywords(converted_response)
-    create_keywords_from_concepts(converted_response)
+      #send transcript to watson and get keyword respons
+      response = RestClient::Request.execute method: :post, url: "https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27", user: ENV["watson_username"], password: ENV["watson_password"], headers: {'Content-Type': "application/json"}, payload: parameters
+
+      #generate keyword objects
+      converted_response = JSON.parse(response)
+      create_keywords_from_keywords(converted_response)
+      create_keywords_from_concepts(converted_response)
 
     render json: @conversation.keywords, status: 201
   end
