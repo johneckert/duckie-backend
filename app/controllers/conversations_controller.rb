@@ -54,13 +54,15 @@ class ConversationsController < ApplicationController
   #helpers for creating keyword instances
   def create_keywords_from_keywords(response_hash)
     response_hash['keywords'].map do |keyword_obj|
-      Keyword.create_with(relevance: keyword_obj['relevance']).find_or_create_by(word: "#{keyword_obj['text']}")
+      new_word = Keyword.create_with(relevance: keyword_obj['relevance']).find_or_create_by(word: "#{keyword_obj['text']}")
+      @conversation.keywords << new_word
     end
   end
 
   def create_keywords_from_concepts(response_hash)
     response_hash['concepts'].map do |concept_obj|
-      Keyword.create_with(relevance: concept_obj['relevance']).find_or_create_by(word: "#{concept_obj['text']}")
+      new_word = Keyword.create_with(relevance: concept_obj['relevance']).find_or_create_by(word: "#{concept_obj['text']}")
+      @conversation.keywords << new_word
     end
   end
 end

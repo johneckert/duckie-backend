@@ -1,5 +1,6 @@
 class KeywordsController < ApplicationController
 
+  ### Delete these once running.
   def index
     keywords = Keyword.all
     render json: keywords, status: 200
