@@ -43,7 +43,12 @@ class ConversationsController < ApplicationController
       create_keywords_from_keywords(converted_response)
       create_keywords_from_concepts(converted_response)
 
-    render json: @conversation.keywords, status: 201
+      top_key_words = @conversation.keywords.select do |k|
+        k.relevance >= 0.7
+      end
+
+
+    render json: top_key_words, status: 201
   end
 
   private
