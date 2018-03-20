@@ -44,5 +44,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'figaro'
 
 gem 'rest-client'
-#access watson REST API
-# gem 'watson-api-client'
+
+gem 'active_model_serializers', '~> 0.10.0'
