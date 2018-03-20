@@ -45,9 +45,24 @@ def update
   tolerance = 0.7
   #generate keyword objects and att to conversation
   converted_response = JSON.parse(response)
-  create_keywords_from_keywords(converted_response, tolerance)
-  create_keywords_from_concepts(converted_response, tolerance)
+  keyword_array = create_keywords_from_keywords(converted_response, tolerance)
+  concept_array = create_keywords_from_concepts(converted_response, tolerance)
 
+  dirty_array = keyword_array.concat(concept_array)
+
+  raw_array = dirty_array.uniq {|keyword| keyword.word}
+
+  raw_array.sort! {|a,b| a.relevance <=> b.relevance }.reverse.first(5)
+
+
+  #I think I need to make sure they don't already exist before entering them
+  raw_array.each do |keyword|
+    keyword.word = keyword.word.titleize
+    all_key_words = @conversation.keywords.map {|keyword| keyword.word}
+    if !(all_key_words.include?(keyword.word))
+      @conversation.keywords << keyword
+    end
+  end
   render json: @conversation.keywords, status: 201
 end
 
@@ -64,21 +79,25 @@ end
 
   #helpers for creating keyword instances
   def create_keywords_from_keywords(response_hash, tolerance)
+    keyword_array = []
     response_hash['keywords'].map do |keyword_obj|
       new_word = Keyword.create_with(relevance: keyword_obj['relevance']).find_or_create_by(word: "#{keyword_obj['text']}")
       if new_word[:relevance] >= tolerance
-        @conversation.keywords << new_word
+        keyword_array << new_word
       end
     end
+    keyword_array
   end
 
   def create_keywords_from_concepts(response_hash, tolerance)
+    keyword_array = []
     response_hash['concepts'].map do |concept_obj|
       new_word = Keyword.create_with(relevance: concept_obj['relevance']).find_or_create_by(word: "#{concept_obj['text']}")
       if new_word[:relevance] >= tolerance
         @conversation.keywords << new_word
       end
     end
+    keyword_array
   end
 
 end
