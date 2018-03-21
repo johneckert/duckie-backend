@@ -13,15 +13,15 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    @conversation = Conversation.create(user_id: conversation_params[:user_id], transcript: conversation_params[:transcript])
+    @conversation = Conversation.create(user_id: params[:user_id], transcript: params[:transcript])
 
     render json: @conversation, status: 201
   end
 
 def update
   @conversation = Conversation.find(params[:id])
+  byebug
   @conversation.update(conversation_params)
-
   #organize for watson
   parameters = {
     'text' => @conversation.transcript,
@@ -74,7 +74,7 @@ end
   end
 
   def conversation_params
-    params.permit(:user_id, :transcript, :id, :audio, :created_at, :updated_at, :conversation)
+    params.require(:conversation).permit(:user_id, :transcript, :id, :audio, :created_at, :updated_at)
   end
 
   #helpers for creating keyword instances
