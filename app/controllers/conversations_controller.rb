@@ -62,6 +62,7 @@ def update
       @conversation.keywords << keyword
     end
   end
+  puts @conversation.keywords
   render json: @conversation.keywords, status: 201
 end
 
