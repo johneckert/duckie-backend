@@ -20,7 +20,6 @@ class ConversationsController < ApplicationController
 
 def update
   @conversation = Conversation.find(params[:id])
-  byebug
   @conversation.update(conversation_params)
   #organize for watson
   parameters = {
