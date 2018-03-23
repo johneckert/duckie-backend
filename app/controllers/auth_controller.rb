@@ -9,4 +9,13 @@ class AuthController < ApplicationController
       render json: {'error': 'Could not find or authenticate user'}, status: 401
     end
   end
+
+  def authorize
+    user = User.find_by(id: token_user_id)
+    if user
+      render json: user
+    else
+      render json: {'error': 'Could not find or authenticate user'}, status: 401
+    end
+  end
 end

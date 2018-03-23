@@ -32,11 +32,11 @@ class ApplicationController < ActionController::API
   end
 
   def token
-    request.headers['Authorization']
+    request.headers['token']
   end
 
   def secret
-    "Florentijn Hofman"
+    "Florentijn Hofman" #put this somewhere safer
   end
 
   def algorithm
