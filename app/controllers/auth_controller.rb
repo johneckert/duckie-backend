@@ -2,7 +2,6 @@ class AuthController < ApplicationController
 
   def login
     user = User.find_by(email: params[:email])
-    byebug
     if user && user.authenticate(params[:password])
       token = issue_token({ 'user_id': user.id})
       render json: {'token': token}
