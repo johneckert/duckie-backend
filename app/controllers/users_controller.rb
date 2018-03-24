@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   before_action :find_user
 
+  def index
+    users = User.all
+    render json: users, status: 200
+  end
+
   def show
+    @user = user.find_by(email: user_params[:email])
     render json: @user, status: 200
   end
 
@@ -17,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:username, :id)
+    params.permit(:first_name, :last_name, :email, :password, :id)
   end
 
 end

@@ -46,3 +46,6 @@ gem 'figaro'
 gem 'rest-client'
 
 gem 'active_model_serializers', '~> 0.10.0'
+
+#token
+gem 'jwt'
