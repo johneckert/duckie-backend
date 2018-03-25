@@ -12,8 +12,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.find_or_create_by(username: params[:username])
-    render json: @user, status: 201
+    maybe_user = User.new(user_params)
+    user_check = maybe_user.save
+    if user_check
+      @user = User.last
+      render json: @user, status: 201
+    else
+      render json: {'error': 'User already exists'}, status: 401
+    end
+
   end
 
   private
@@ -23,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:first_name, :last_name, :email, :password, :id)
+    params.permit(:first_name, :last_name, :email, :password, :id, :password_digest, :user)
   end
 
 end
