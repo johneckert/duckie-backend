@@ -36,7 +36,7 @@ class ApplicationController < ActionController::API
   end
 
   def secret
-    "Florentijn Hofman" #put this somewhere safer
+    ENV["jwt_secret"]
   end
 
   def algorithm
