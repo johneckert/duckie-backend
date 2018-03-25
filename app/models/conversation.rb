@@ -3,4 +3,7 @@ class Conversation < ApplicationRecord
   has_many :conversation_keywords
   has_many :keywords, through: :conversation_keywords
 
+
+
+
 end

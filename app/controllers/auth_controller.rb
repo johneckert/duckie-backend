@@ -11,9 +11,9 @@ class AuthController < ApplicationController
   end
 
   def authorize
-    user = User.find_by(id: token_user_id)
-    if user
-      render json: user
+    @user = User.find_by(id: token_user_id)
+    if @user
+      render json: @user, serializer: UserSerializer, status: 200
     else
       render json: {'error': 'Could not find or authenticate user'}, status: 401
     end
