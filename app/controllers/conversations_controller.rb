@@ -51,7 +51,7 @@ def update
 
   raw_array = dirty_array.uniq {|keyword| keyword.word}
 
-  raw_array.sort! {|a,b| a.relevance <=> b.relevance }.reverse.first(5)
+  raw_array.sort! {|a,b| b.relevance <=> a.relevance }.first(5)
 
 
   #I think I need to make sure they don't already exist before entering them
