@@ -48,17 +48,11 @@ def update
   concept_array = create_keywords_from_concepts(converted_response, tolerance)
 
   dirty_array = keyword_array.concat(concept_array)
-
   raw_array = dirty_array.uniq {|keyword| keyword[:word]}
-
   raw_array.sort! {|a,b| b.relevance <=> a.relevance }.first(5)
 
-
-  #I think I need to make sure they don't already exist before entering them
   raw_array.each do |keyword|
     keyword[:word] = keyword[:word].titleize
-    # new_keyword = Keyword.find_or_create_by(word: keyword[:word])
-    # if conversation.keywords does not already include they keyword add it.  otherwise do nothing
     current_convo_keywords = @conversation.keywords
     matching = @conversation.keywords.select{|kw| kw.word.titleize == keyword[:word]}
     if matching.length == 0
