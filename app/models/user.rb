@@ -4,7 +4,8 @@ class User < ApplicationRecord
 
 
   def number_of_conversations
-    self.conversations.length
+    actual_convos = self.conversations.select{|convo| convo.transcript.length > 0}
+    actual_convos.length
   end
 
   def user_keywords
@@ -17,6 +18,6 @@ class User < ApplicationRecord
     end
     no_duplicates = all_users_keywords.uniq {|k| k.word}
     no_duplicates.sort! {|a,b| b.relevance <=> a.relevance}
-    top_ten = no_duplicates[0 .. 11]
+    top_ten = no_duplicates[0 .. 11].shuffle!
   end
 end

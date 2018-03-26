@@ -14,7 +14,6 @@ class ConversationsController < ApplicationController
 
   def create
     @conversation = Conversation.create(user_id: params[:user_id], transcript: params[:transcript])
-
     render json: @conversation, status: 201
   end
 
@@ -44,24 +43,26 @@ def update
   tolerance = 0.7
   #generate keyword objects and att to conversation
   converted_response = JSON.parse(response)
+
   keyword_array = create_keywords_from_keywords(converted_response, tolerance)
   concept_array = create_keywords_from_concepts(converted_response, tolerance)
 
   dirty_array = keyword_array.concat(concept_array)
 
-  raw_array = dirty_array.uniq {|keyword| keyword.word}
+  raw_array = dirty_array.uniq {|keyword| keyword[:word]}
 
   raw_array.sort! {|a,b| b.relevance <=> a.relevance }.first(5)
 
 
   #I think I need to make sure they don't already exist before entering them
   raw_array.each do |keyword|
-    keyword.word = keyword.word.titleize
-    all_key_words = @conversation.keywords.map {|keyword| keyword.word}
-    if !(all_key_words.include?(keyword.word))
-      @conversation.keywords << keyword
-    end
+    keyword[:word] = keyword[:word].titleize
+    # new_keyword = Keyword.find_or_create_by(word: keyword[:word])
+    @conversation.keywords << keyword
   end
+
+
+
   puts @conversation.keywords
   render json: @conversation.keywords, status: 201
 end
@@ -94,7 +95,7 @@ end
     response_hash['concepts'].map do |concept_obj|
       new_word = Keyword.create_with(relevance: concept_obj['relevance']).find_or_create_by(word: "#{concept_obj['text']}")
       if new_word[:relevance] >= tolerance
-        @conversation.keywords << new_word
+        keyword_array << new_word
       end
     end
     keyword_array
