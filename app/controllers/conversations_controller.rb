@@ -58,7 +58,12 @@ def update
   raw_array.each do |keyword|
     keyword[:word] = keyword[:word].titleize
     # new_keyword = Keyword.find_or_create_by(word: keyword[:word])
-    @conversation.keywords << keyword
+    # if conversation.keywords does not already include they keyword add it.  otherwise do nothing
+    current_convo_keywords = @conversation.keywords
+    matching = @conversation.keywords.select{|kw| kw.word.titleize == keyword[:word]}
+    if matching.length == 0
+      @conversation.keywords << keyword
+    end
   end
 
 
