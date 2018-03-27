@@ -18,6 +18,6 @@ class User < ApplicationRecord
     end
     no_duplicates = all_users_keywords.uniq {|k| k.word}
     no_duplicates.sort! {|a,b| b.relevance <=> a.relevance}
-    top_ten = no_duplicates[0 .. 9].shuffle!
+    top_ten = no_duplicates[0 .. 11].shuffle!
   end
 end

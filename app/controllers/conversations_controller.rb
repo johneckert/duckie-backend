@@ -39,7 +39,7 @@ def update
   #send transcript to watson and get keyword respons
   response = RestClient::Request.execute method: :post, url: "https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2017-02-27", user: ENV["watson_username"], password: ENV["watson_password"], headers: {'Content-Type': "application/json"}, payload: parameters
 
-  #set keyword tolerance
+  #set keyword tolerance 1 is only words in computer_words array.  Watson retruns 0 > 1.
   tolerance = 1
   #generate keyword objects and att to conversation
   converted_response = JSON.parse(response)
@@ -59,10 +59,7 @@ def update
       @conversation.keywords << keyword
     end
   end
-
-
-
-  puts @conversation.keywords
+  
   render json: @conversation.keywords, status: 201
 end
 
