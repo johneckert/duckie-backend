@@ -6,7 +6,7 @@ class AuthController < ApplicationController
       token = issue_token({ 'user_id': user.id})
       render json: {'token': token}
     else
-      render json: {'error': 'Could not find or authenticate user'}, status: 401
+      render json: {'error': 'Could not find or authenticate user'}
     end
   end
 
@@ -15,7 +15,7 @@ class AuthController < ApplicationController
     if @user
       render json: @user, serializer: UserSerializer, status: 200
     else
-      render json: {'error': 'Could not find or authenticate user'}, status: 401
+      render json: {'error': 'Could not find or authenticate user'}
     end
   end
 end
