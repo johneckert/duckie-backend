@@ -1,6 +1,6 @@
 class KeywordsController < ApplicationController
 
-  ### Delete these once running.
+  ### For Testing Access Only
   def index
     keywords = Keyword.all
     render json: keywords, status: 200
