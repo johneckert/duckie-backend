@@ -23,10 +23,10 @@
 
 ### Prerequsites
 
-Google Chrome (More browsers coming soon!)
-Ruby v5.1.5
-PostgreSQL 10
-React/Redux
+* Google Chrome (More browsers coming soon!)
+* Ruby v5.1.5
+* PostgreSQL 10
+* React/Redux
 
 ### Back End Setup
 
