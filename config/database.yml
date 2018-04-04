@@ -80,7 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: "dc9toevqlq2i4b"
-  username: 'hlrtksasoqrftx'
-  password: "93a86bf7c0820f40cb
-aeacb1df996b6f4479268fde6fae0437d9b5846bf09642"
+  database: duckie-backend_production
+  username: duckie-backend
+  password: <%= ENV['DUCKIE-BACKEND_DATABASE_PASSWORD'] %>
