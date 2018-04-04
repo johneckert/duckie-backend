@@ -13,8 +13,7 @@ class UsersController < ApplicationController
 
   def create
     puts params
-    maybe_user = User.new({params[:user]})
-    # maybe_user = User.new(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], password[:password])
+    maybe_user = User.new(params)
     user_check = maybe_user.save
     if user_check
       @user = User.last
