@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    puts params
     maybe_user = User.new(user_params)
     user_check = maybe_user.save
     if user_check
@@ -20,7 +19,7 @@ class UsersController < ApplicationController
       render json: @user, status: 201
     else
       # render json: {'error': 'User already exists'}
-      render json: maybe_user
+      render json: user_params
     end
 
   end
