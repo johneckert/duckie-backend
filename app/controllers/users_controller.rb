@@ -18,8 +18,7 @@ class UsersController < ApplicationController
       @user = User.last
       render json: @user, status: 201
     else
-      # render json: {'error': 'User already exists'}
-      render json: user_params
+      render json: {'error': 'User already exists'}
     end
 
   end
