@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def create
     puts params
-    maybe_user = User.new(params)
+    maybe_user = User.new(user_params)
     user_check = maybe_user.save
     if user_check
       @user = User.last
@@ -30,8 +30,8 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
-  # def user_params
-  #   params.permit(:first_name, :last_name, :email, :password, :id, :password_digest, :user)
-  # end
+  def user_params
+    params.permit(:first_name, :last_name, :email, :password, :id, :password_digest, :user)
+  end
 
 end
