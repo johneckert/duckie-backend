@@ -30,14 +30,14 @@
 
 ### Back End Setup
 
-1.  Clone this repo - https://github.com/johneckert/dr-meowrio-backend
+1.  Clone this repo - https://github.com/johneckert/duckie-backend
 2.  Install Gems `bundle install`
 3.  Setup Database `rake db:create`, then `run rake db:migrate`
 4.  Start your server `rails s`
 
 ### Front End Setup
 
-1.  Clone this repo - https://github.com/johneckert/dr-meowio-frontend
+1.  Clone this repo - https://github.com/johneckert/duckie-backend
 2.  Install Dependencies `yarn install`
 3.  Start your server `yarn start`
 
