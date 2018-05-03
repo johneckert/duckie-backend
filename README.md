@@ -37,7 +37,7 @@
 
 ### Front End Setup
 
-1.  Clone this repo - https://github.com/johneckert/duckie-backend
+1.  Clone this repo - https://github.com/johneckert/duckie-frontend
 2.  Install Dependencies `yarn install`
 3.  Start your server `yarn start`
 
